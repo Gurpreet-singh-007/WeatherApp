@@ -159,6 +159,7 @@ async function fetchSearchWeatherInfo(cityName) {
           );
         if(!response.ok){
             if(response.status === 404){
+                loadingScreen.classList.remove("active") ;           
                 nf.classList.add("active") ;
                 console.log("error caught inside else in catch");
                 nf.textContent="City not found" ;
@@ -176,7 +177,6 @@ async function fetchSearchWeatherInfo(cityName) {
         renderWeatherInfo(data);
     }
     catch(err) {
-        loadingScreen.classList.remove("active") ;           
     }
 }
 
