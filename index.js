@@ -143,11 +143,11 @@ searchForm.addEventListener("submit", (e) => {
 })
 
 
-let nf = document.querySelector(".not-found") ;
+let nf = document.querySelector("[data-notFound]") ;
 
 async function fetchSearchWeatherInfo(cityName) {
-    // nf.textContent = "" ;
-    // nf.classList.remove("active");
+    nf.textContent = "" ;
+    nf.classList.remove("active");
     loadingScreen.classList.add("active");
     userInfoContainer.classList.remove("active");
     grantAccessContainer.classList.remove("active");
@@ -159,11 +159,7 @@ async function fetchSearchWeatherInfo(cityName) {
           );
         if(!response.ok){
             if(response.status === 404){
-                loadingScreen.classList.remove("active") ;           
-                nf.classList.add("active") ;
-                console.log("error caught inside else in catch");
-                nf.textContent="City not found" ;
-                console.log("error displayed ");
+                notFound404();
                 throw new Error("City not found") ;
             }
             else{
@@ -177,7 +173,16 @@ async function fetchSearchWeatherInfo(cityName) {
         renderWeatherInfo(data);
     }
     catch(err) {
+        console.error("error found");
+        
     }
+}
+function notFound404(){
+    loadingScreen.classList.remove("active") ;           
+    nf.classList.add("active") ;
+    console.log("error caught inside else in catch");
+    nf.textContent="City not found" ;
+    console.log("error displayed ");
 }
 
 
