@@ -143,11 +143,12 @@ searchForm.addEventListener("submit", (e) => {
 })
 
 
-let nf = document.querySelector("[data-notFound]") ;
+let notFound = document.querySelector(".not-found") ;
+let errMsg = document.querySelector("[data-notFound]") ;
 
 async function fetchSearchWeatherInfo(cityName) {
-    nf.textContent = "" ;
-    nf.classList.remove("active");
+    errMsg.textContent = "" ;
+    errMsg.classList.remove("active");
     loadingScreen.classList.add("active");
     userInfoContainer.classList.remove("active");
     grantAccessContainer.classList.remove("active");
@@ -157,32 +158,20 @@ async function fetchSearchWeatherInfo(cityName) {
         const response = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
           );
-        if(!response.ok){
-            if(response.status === 404){
-                notFound404();
-                throw new Error("City not found") ;
-            }
-            else{
-                throw new Error("Network response was not ok") ;
-            }
-        }
-
-        const data = await response.json();
+          const data = await response.json();
+          if(!data.sys){
+                throw data ;
+          }
         loadingScreen.classList.remove("active");
         userInfoContainer.classList.add("active");
         renderWeatherInfo(data);
     }
-    catch(err) {
-        console.error("error found");
-        
+    catch (err) {
+        loadingScreen.classList.remove('active');
+        userInfoContainer.classList.remove("active");
+        notFound.classList.add("active") ;
+        errMsg.innerhtml = `${err.message}` ;
     }
-}
-function notFound404(){
-    loadingScreen.classList.remove("active") ;           
-    nf.classList.add("active") ;
-    console.log("error caught inside else in catch");
-    nf.textContent="City not found" ;
-    console.log("error displayed ");
 }
 
 
