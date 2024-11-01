@@ -47,10 +47,6 @@
               <!-- Weather Info -->
               <div class="user-info-container sub-container">
 
-                <div class="not-found">
-                    <p data-notFound></p>
-                </div>
-
                 <div class="name">
                     <p data-cityName></p>
                     <img data-countryIcon>
@@ -76,9 +72,14 @@
                         <p>Clouds</p>
                         <p data-cloudiness></p>
                     </div>
-
                 </div>
               </div>
+
+        <!-- Location Not Found -->
+        <div class="errorContainer subContainer">
+            <img src="images/not-found.png" data-errorImg />
+            <p data-errorText></p>
+          </div>
 
         </div>
 
