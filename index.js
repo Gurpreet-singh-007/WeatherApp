@@ -184,4 +184,9 @@ async function fetchSearchWeatherInfo(city) {
         errorBtn.style.display = "none";
     }
 }
-});
+
+
+
+
+
+
